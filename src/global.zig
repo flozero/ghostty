@@ -86,10 +86,8 @@ pub const GlobalState = struct {
 
         self.alloc = if (self.gpa) |*value|
             value.allocator()
-        else if (builtin.link_libc)
-            std.heap.c_allocator
         else
-            unreachable;
+            std.heap.c_allocator;
 
         // We first try to parse any action that we may be executing.
         self.action = try cli.action.detectArgs(
